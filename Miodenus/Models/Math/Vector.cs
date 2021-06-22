@@ -8,6 +8,8 @@ namespace Miodenus.Models.Math
         public float Y = 0.0f;
         public float Z = 0.0f;
         
+        public float Length => (float)System.Math.Sqrt(X * X + Y * Y + Z * Z);
+        
         public Vector() {}
 
         public Vector(float x, float y)
@@ -23,12 +25,17 @@ namespace Miodenus.Models.Math
             this.Z = z;
         }
 
-        public double Length
+        public static Vector Normalize(in Vector vector)
         {
-            get
-            {
-                return System.Math.Sqrt(X * X + Y * Y + Z * Z);
-            }
+            float length = vector.Length;
+            return new Vector(vector.X / length, vector.Y / length, vector.Z / length);
+        }
+
+        public static float Distance(in Vector vectorA, in Vector vectorB)
+        {
+            return (float)System.Math.Sqrt(System.Math.Pow(vectorB.X - vectorA.X, 2) 
+                                           + System.Math.Pow(vectorB.Y - vectorA.Y, 2)
+                                           + System.Math.Pow(vectorB.Z - vectorA.Z, 2));
         }
         
         public override bool Equals(object? obj)
