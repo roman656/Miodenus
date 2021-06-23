@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace Miodenus.Models.Math
 {
@@ -38,6 +39,77 @@ namespace Miodenus.Models.Math
                                            + System.Math.Pow(vectorB.Z - vectorA.Z, 2));
         }
         
+        /* Скалярное произведение. */
+        public static float DotProduct(in Vector vectorA, in Vector vectorB)
+        {
+            return (vectorA.X * vectorB.X + vectorA.Y * vectorB.Y + vectorA.Z * vectorB.Z);
+        }
+        
+        /* Векторное произведение. */
+        public static Vector CrossProduct(in Vector vectorA, in Vector vectorB)
+        {
+            return new Vector(vectorA.Y * vectorB.Z - vectorA.Z * vectorB.Y,
+                              vectorA.Z * vectorB.X - vectorA.X * vectorB.Z,
+                              vectorA.X * vectorB.Y - vectorA.Y * vectorB.X);
+        }
+        
+        /* Смешанное произведение. */
+        public static float TripleProduct(in Vector vectorA, in Vector vectorB, in Vector vectorC)
+        {
+            return (vectorA.X * vectorB.Y * vectorC.Z
+                    + vectorA.Y * vectorB.Z * vectorC.X
+                    + vectorA.Z * vectorB.X * vectorC.Y
+                    - vectorA.Z * vectorB.Y * vectorC.X
+                    - vectorA.X * vectorB.Z * vectorC.Y
+                    - vectorA.Y * vectorB.X * vectorC.Z);
+        }
+
+        public static Vector Negate(in Vector vector)
+        {
+            return new Vector(-vector.X, -vector.Y, -vector.Z);
+        }
+
+        public static Vector Multiply(in Vector vector, float scalar)
+        {
+            return new Vector(vector.X * scalar, vector.Y * scalar, vector.Z * scalar);
+        }
+
+        public static Vector Add(in Vector vectorA, in Vector vectorB)
+        {
+            return new Vector(vectorA.X + vectorB.X, vectorA.Y + vectorB.Y, vectorA.Z + vectorB.Z);
+        }
+        
+        public static Vector Subtract(in Vector vectorA, in Vector vectorB)
+        {
+            return new Vector(vectorA.X - vectorB.X, vectorA.Y - vectorB.Y, vectorA.Z - vectorB.Z);
+        }
+        
+        /*
+         * Проверка компланарности 3х векторов.
+         * 3 вектора называются компланарными, если они, будучи приведенными к общему началу, лежат в одной плоскости.
+         * Смешанное произведение компланарных векторов равно 0.
+         * Возвращает: true - вектора компланарны; false - в противном случае.
+         */
+        public static bool CheckCoplanarity(in Vector vectorA, in Vector vectorB, in Vector vectorC)
+        {
+            return (TripleProduct(vectorA, vectorB, vectorC) == 0.0f);
+        }
+        
+        /*
+         * Проверка коллинеарности векторов.
+         * Два вектора коллинеарны, если их векторное произведение равно нулевому вектору.
+         * Возвращает: true - вектора коллинеарны; false - в противном случае.
+         */
+        public static bool CheckCollinearity(in Vector vectorA, in Vector vectorB)
+        {
+            return CrossProduct(vectorA, vectorB).Equals(new Vector());
+        }
+
+        public static Vector Abs(in Vector vector)
+        {
+            return new Vector(System.Math.Abs(vector.X), System.Math.Abs(vector.Y), System.Math.Abs(vector.Z));
+        }
+
         public override bool Equals(object? obj)
         {
             if ((obj == null) || !this.GetType().Equals(obj.GetType()))
@@ -55,10 +127,10 @@ namespace Miodenus.Models.Math
             {
                 return false;
             }
-            
+
             return (obj.X.Equals(this.X) && obj.Y.Equals(this.Y) && obj.Z.Equals(this.Z));
         }
-        
+
         public override int GetHashCode()
         {
             return HashCode.Combine(X, Y, Z);
@@ -66,7 +138,7 @@ namespace Miodenus.Models.Math
         
         public override string ToString()
         {
-            return ($"Vector: ({X}, {Y}, {Z})");
+            return string.Format(CultureInfo.InvariantCulture, "Vector: ({0}, {1}, {2})", X, Y, Z);
         }
 
         public object Clone()
