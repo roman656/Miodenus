@@ -25,6 +25,31 @@ namespace Miodenus.Models.Math
             this.Y = y;
             this.Z = z;
         }
+        
+        public static Vector operator *(Vector vectorA, float scalar)
+        {
+            return Multiply(vectorA, scalar);
+        }
+        
+        public static Vector operator *(float scalar, Vector vectorA)
+        {
+            return Multiply(vectorA, scalar);
+        }
+
+        public static Vector operator +(Vector vectorA, Vector vectorB)
+        {
+            return Add(vectorA, vectorB);
+        }
+        
+        public static Vector operator -(Vector vectorA, Vector vectorB)
+        {
+            return Subtract(vectorA, vectorB);
+        }
+        
+        public static Vector operator -(Vector vector)
+        {
+            return Negate(vector);
+        }
 
         public static Vector Normalize(in Vector vector)
         {

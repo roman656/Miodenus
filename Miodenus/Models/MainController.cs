@@ -50,6 +50,14 @@ namespace Miodenus.Models
             Console.WriteLine("{0} cross {1}: {2}", vectorA, vectorB, Vector.CrossProduct(vectorA, vectorB));
             Console.WriteLine("{0} dot {1}: {2}", vectorA, vectorB, Vector.DotProduct(vectorA, vectorB));
             Console.WriteLine("{0} triple {1} and {2}: {3}", vectorA, vectorB, vectorC, Vector.TripleProduct(vectorA, vectorB, vectorC));
+            
+            Console.WriteLine("{0} + {1}: {2}", vectorA, vectorB, vectorA + vectorB);
+            Console.WriteLine("{0} - {1}: {2}", vectorA, vectorB, vectorA - vectorB);
+            Console.WriteLine("-{0}: {1}", vectorA, -vectorA);
+            Console.WriteLine("{0} * 20: {1}", vectorA, vectorA * 20);
+            Console.WriteLine("0 * {0}: {1}", vectorA, 0 * vectorA);
+            Console.WriteLine("0.5 * {0}: {1}", vectorA, 0.5f * vectorA);
+            Console.WriteLine("0 * {0} + {1}: {2}", vectorA, new Vector(1, 1, 1), 0 * vectorA + new Vector(1, 1, 1));
         }
     }
 }
