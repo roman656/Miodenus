@@ -5,51 +5,28 @@ namespace Miodenus.Models.Math
 {
     public class Vector : IMiodenusObject
     {
-        public float X = 0.0f;
-        public float Y = 0.0f;
-        public float Z = 0.0f;
+        public float X;
+        public float Y;
+        public float Z;
         
         public float Length => (float)System.Math.Sqrt(X * X + Y * Y + Z * Z);
-        
-        public Vector() {}
 
-        public Vector(float x, float y)
-        {
-            this.X = x;
-            this.Y = y;
-        }
-        
-        public Vector(float x, float y, float z)
+        public Vector(float x = 0.0f, float y = 0.0f, float z = 0.0f)
         {
             this.X = x;
             this.Y = y;
             this.Z = z;
         }
         
-        public static Vector operator *(Vector vectorA, float scalar)
-        {
-            return Multiply(vectorA, scalar);
-        }
-        
-        public static Vector operator *(float scalar, Vector vectorA)
-        {
-            return Multiply(vectorA, scalar);
-        }
+        public static Vector operator *(Vector vectorA, float scalar) => Multiply(vectorA, scalar);
 
-        public static Vector operator +(Vector vectorA, Vector vectorB)
-        {
-            return Add(vectorA, vectorB);
-        }
-        
-        public static Vector operator -(Vector vectorA, Vector vectorB)
-        {
-            return Subtract(vectorA, vectorB);
-        }
-        
-        public static Vector operator -(Vector vector)
-        {
-            return Negate(vector);
-        }
+        public static Vector operator *(float scalar, Vector vectorA) => Multiply(vectorA, scalar);
+
+        public static Vector operator +(Vector vectorA, Vector vectorB) => Add(vectorA, vectorB);
+
+        public static Vector operator -(Vector vectorA, Vector vectorB) => Subtract(vectorA, vectorB);
+
+        public static Vector operator -(Vector vector) => Negate(vector);
 
         public static Vector Normalize(in Vector vector)
         {
@@ -89,10 +66,7 @@ namespace Miodenus.Models.Math
                     - vectorA.Y * vectorB.X * vectorC.Z);
         }
 
-        public static Vector Negate(in Vector vector)
-        {
-            return new Vector(-vector.X, -vector.Y, -vector.Z);
-        }
+        public static Vector Negate(in Vector vector) => new Vector(-vector.X, -vector.Y, -vector.Z);
 
         public static Vector Multiply(in Vector vector, float scalar)
         {
@@ -156,19 +130,13 @@ namespace Miodenus.Models.Math
             return (obj.X.Equals(this.X) && obj.Y.Equals(this.Y) && obj.Z.Equals(this.Z));
         }
 
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(X, Y, Z);
-        }
-        
+        public override int GetHashCode() => HashCode.Combine(X, Y, Z);
+
         public override string ToString()
         {
             return string.Format(CultureInfo.InvariantCulture, "Vector: ({0}, {1}, {2})", X, Y, Z);
         }
 
-        public object Clone()
-        {
-            return new Vector(X, Y, Z);
-        }
+        public object Clone() => new Vector(X, Y, Z);
     }
 }
