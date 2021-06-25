@@ -109,6 +109,20 @@ namespace Miodenus.Models.Math
             return new Vector(System.Math.Abs(vector.X), System.Math.Abs(vector.Y), System.Math.Abs(vector.Z));
         }
 
+        public static Angle CalculateAngleBetweenVectors(in Vector vectorA, in Vector vectorB)
+        {
+            float lengthA = vectorA.Length;
+            float lengthB = vectorB.Length;
+            
+            if (lengthA == 0.0f || lengthB == 0.0f)
+            {
+                throw new DivideByZeroException(
+                        "Either one of 2 input vectors is (0, 0, 0).");
+            }
+            
+            return new Angle((float)System.Math.Acos(DotProduct(vectorA, vectorB) / (lengthA * lengthB)));
+        }
+
         public override bool Equals(object? obj)
         {
             if ((obj == null) || !this.GetType().Equals(obj.GetType()))

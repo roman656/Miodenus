@@ -75,6 +75,9 @@ namespace Miodenus.Models
             Console.WriteLine("{0} - {1}: {2}", angle1, angle2, angle1 - angle2);
             Console.WriteLine("{0} * 2: {1}", angle1, angle1 * 2.0f);
             Console.WriteLine("0.5 * {0}: {1}", angle2, 0.5f * angle2);
+
+            var angle3 = Vector.CalculateAngleBetweenVectors(vectorA, vectorB);
+            Console.WriteLine("Угол между векторами {0} и {1}: {2} градусов или {3} радиан.", vectorA, vectorB, angle3.Degrees, angle3.Radians);
         }
     }
 }
