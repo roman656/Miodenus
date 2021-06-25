@@ -27,6 +27,14 @@ namespace Miodenus.Models.Math
             Radians = (angleType == Type.Degrees) ? ConvertDegreesToRadians(value) : value;
         }
         
+        public static Angle operator *(Angle angle, float scalar) => Multiply(angle, scalar);
+
+        public static Angle operator *(float scalar, Angle angle) => Multiply(angle, scalar);
+        
+        public static Angle operator +(Angle angleA, Angle angleB) => Add(angleA, angleB);
+
+        public static Angle operator -(Angle angleA, Angle angleB) => Subtract(angleA, angleB);
+        
         public static float ConvertDegreesToRadians(float degrees) => (float)(degrees * System.Math.PI / PiInDegrees);
 
         public static float ConvertRadiansToDegrees(float radians) => (float)(radians * PiInDegrees / System.Math.PI);
@@ -64,6 +72,44 @@ namespace Miodenus.Models.Math
             return degrees;
         }
         
+        public static Angle Multiply(in Angle angle, float scalar)
+        {
+            return new Angle(angle.Radians * scalar);
+        }
+
+        public static Angle Add(in Angle angleA, in Angle angleB)
+        {
+            return new Angle(angleA.Radians + angleB.Radians);
+        }
+        
+        public static Angle Subtract(in Angle angleA, in Angle angleB)
+        {
+            return new Angle(angleA.Radians - angleB.Radians);
+        }
+        
+        public override bool Equals(object? obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+
+            Angle temp = (Angle)obj;
+            return temp.Radians.Equals(this.Radians);
+        }
+
+        public bool Equals(Angle? obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            return obj.Radians.Equals(this.Radians);
+        }
+
+        public override int GetHashCode() => Radians.GetHashCode();
+
         public override string ToString() => string.Format(CultureInfo.InvariantCulture, "Angle: {0} rad", Radians);
 
         public object Clone() => new Angle(Radians);

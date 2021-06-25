@@ -58,6 +58,23 @@ namespace Miodenus.Models
             Console.WriteLine("0 * {0}: {1}", vectorA, 0 * vectorA);
             Console.WriteLine("0.5 * {0}: {1}", vectorA, 0.5f * vectorA);
             Console.WriteLine("0 * {0} + {1}: {2}", vectorA, new Vector(1, 1, 1), 0 * vectorA + new Vector(1, 1, 1));
+
+            var angle1 = new Angle(30, Angle.Type.Degrees);
+
+            Console.WriteLine("\nУгол в радианах: {0}", angle1.Radians);
+            Console.WriteLine("Угол в градусах: {0}", angle1.Degrees);
+            Console.WriteLine("Хеш-код: {0}", angle1.GetHashCode());
+            
+            var angle2 = new Angle(90, Angle.Type.Degrees);
+            
+            Console.WriteLine("\nУгол 2 в радианах: {0}", angle2.Radians);
+            Console.WriteLine("{0} equals {1}: {2}", angle1, angle2, angle1.Equals(angle2));
+            Console.WriteLine("{0} equals {1}: {2}", angle1, angle1, angle1.Equals(angle1));
+            Console.WriteLine("Object: {0} equals {1}: {2}", angle1, angle2, angle1.Equals((object)angle2));
+            Console.WriteLine("{0} + {1}: {2}", angle1, angle2, angle1 + angle2);
+            Console.WriteLine("{0} - {1}: {2}", angle1, angle2, angle1 - angle2);
+            Console.WriteLine("{0} * 2: {1}", angle1, angle1 * 2.0f);
+            Console.WriteLine("0.5 * {0}: {1}", angle2, 0.5f * angle2);
         }
     }
 }
